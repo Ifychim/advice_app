@@ -13,7 +13,10 @@ class App extends React.Component{
         //fetch advice using axios. Api returns random advice on every get request.
         axios.get('https://api.adviceslip.com/advice')
             .then((response) =>{
-                console.log(response.data.slip.advice);
+                const {advice} = response.data.slip;
+
+                this.setState({advice});
+                
             })
             .catch((error) => {
                 console.log(error);
@@ -26,9 +29,18 @@ class App extends React.Component{
     }
 
     render() {
+        const {advice} = this.state;
         return(
-
-            <h1> App </h1>
+            
+            <div className="app">
+                <div className="card">
+                    <h1 className="heading">{advice}</h1>
+                    <button className="button" onClick={this.fetchAdvice}>
+                        <span>GIVE ME ADVICE!</span>
+                    </button>
+                </div>
+            </div>
+            
         );
     }
 }
